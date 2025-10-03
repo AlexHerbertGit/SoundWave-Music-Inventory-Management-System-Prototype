@@ -1,7 +1,7 @@
 ﻿using DataAccess.Interfaces;
 using SoundWaveMusic.DataAccess.Data;
-using SoundWaveMusic.DataAccess.Interfaces;
 using SoundWaveMusic.DataAccess.Repositories;
+using SoundWaveMusic.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

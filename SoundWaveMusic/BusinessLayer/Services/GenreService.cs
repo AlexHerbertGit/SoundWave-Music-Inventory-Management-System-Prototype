@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SoundWaveMusic.BusinessLayer.Interfaces;
-using SoundWaveMusic.DataAccess;
-using SoundWaveMusic.DataAccess.Interfaces;
+using DataAccess.Interfaces;
 using SoundWaveMusic.DataAccess.Repositories;
 using SoundWaveMusic.Domain.Entities;
+using SoundWaveMusic.DataAccess.Interfaces;
 
 namespace SoundWaveMusic.BusinessLayer.Services
 {
