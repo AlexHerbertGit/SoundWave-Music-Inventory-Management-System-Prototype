@@ -1,14 +1,12 @@
-﻿using SoundWaveMusic.Domain.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using SoundWaveMusic.Entities;
 
-namespace DataAccess.Interfaces
+namespace SoundWaveMusic.Interfaces
 {
     public interface IOrderItemRepository
     {
+        Task<IEnumerable<OrderItem>> GetAllAsync();
         Task AddAsync(OrderItem item);
         void Delete(OrderItem item);
-        Task<IEnumerable<OrderItem>> GetAllAsync();
         Task<IEnumerable<OrderItem>> GetOrderItemByIdAsync(int orderId);
     }
 }

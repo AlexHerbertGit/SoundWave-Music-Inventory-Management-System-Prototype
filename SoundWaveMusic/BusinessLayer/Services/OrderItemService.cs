@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoundWaveMusic.BusinessLayer.Interfaces;
+using BusinessLayer.Interfaces;
+using SoundWaveMusic.Entities;
 using SoundWaveMusic.DataAccess.Interfaces;
-using SoundWaveMusic.Domain.Entities;
 
-namespace SoundWaveMusic.BusinessLayer.Services
+namespace BusinessLayer.Services
 {
     public class OrderItemService : IOrderItemService
     {

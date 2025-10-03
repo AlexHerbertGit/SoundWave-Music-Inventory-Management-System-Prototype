@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoundWaveMusic.Domain.Entities;
+using SoundWaveMusic.Entities;
 using SoundWaveMusic.DataAccess.Data;
-using DataAccess.Interfaces;
+using SoundWaveMusic.Interfaces;
 
-namespace SoundWaveMusic.DataAccess.Repositories
+namespace SoundWaveMusic.Repositories
 {
     public class ProductRepository : IProductRepository
     {

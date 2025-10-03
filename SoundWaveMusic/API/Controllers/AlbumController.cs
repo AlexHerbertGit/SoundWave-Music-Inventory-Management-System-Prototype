@@ -1,83 +1,91 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SoundWaveMusic.BusinessLayer.Interfaces;
-using SoundWaveMusic.Domain.Entities;
+using AutoMapper;
+using SoundWaveMusic.Entities;
+using BusinessLayer.Interfaces;
+using SoundWaveMusic.Models;
+ 
 
-namespace SoundWaveMusic.API.Controllers
+namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumController : ControllerBase
     {
         private readonly IAlbumService _albumService;
+        private readonly IMapper _mapper;
 
-        public AlbumController(IAlbumService albumService)
+        public AlbumController(IAlbumService albumService, IMapper mapper)
         {
             _albumService = albumService;
+            _mapper = mapper;
         }
 
         // GET: api/album
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Album>>> GetAllAlbums()
+        public async Task<ActionResult<IEnumerable<AlbumModel>>> GetAllAlbums()
         {
             var albums = await _albumService.GetAllAlbumsAsync();
-            return Ok(albums);
+            return Ok(_mapper.Map<List<AlbumModel>>(albums));
         }
 
         // GET: api/album/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Album>> GetAlbumById(int id)
+        public async Task<ActionResult<AlbumModel>> GetAlbumById(int id)
         {
             var album = await _albumService.GetAlbumByIdAsync(id);
             if (album == null)
-            {
                 return NotFound();
-            }
-            
-            return Ok(album);
+     
+            return Ok(_mapper.Map<AlbumModel>(album));
         }
 
         // GET: api/album/artist/{artistId}
         [HttpGet("artist/{artistId}")]
-        public async Task<ActionResult<IEnumerable<Album>>> GetAlbumsByArtist(int id)
+        public async Task<ActionResult<IEnumerable<AlbumModel>>> GetAlbumsByArtist(int artistId)
         {
-            var albums = await _albumService.GetAlbumsByArtistIdAsync(id);
-            return Ok(albums);
+            var albums = await _albumService.GetAlbumsByArtistIdAsync(artistId);
+            return Ok(_mapper.Map<List<AlbumModel>>(albums));
         }
 
         // GET: api/album/genre/{genreId}
-        public async Task<ActionResult<IEnumerable<Album>>> GetAlbumByGenre(int id)
+        [HttpGet("genre/{genreId}")]
+        public async Task<ActionResult<IEnumerable<AlbumModel>>> GetAlbumByGenre(int genreId)
         {
-            var albums = await _albumService.GetAlbumsByGenreIdAsync(id);
-            return Ok(albums);
+            var albums = await _albumService.GetAlbumsByGenreIdAsync(genreId);
+            return Ok(_mapper.Map<List<AlbumModel>>(albums));
         }
 
-        //POST: api/album
+        // POST: api/Album
         [HttpPost]
-        public async Task<ActionResult<Album>> AddAlbum([FromBody]Album album)
+        public async Task<ActionResult<AlbumModel>> AddAlbum([FromBody] AlbumModel albumModel)
         {
+            var album = _mapper.Map<Album>(albumModel);
             await _albumService.AddAlbumAsync(album);
-            return CreatedAtAction(nameof(GetAlbumById), new { id = album.AlbumId }, album);
+
+            var createdModel = _mapper.Map<AlbumModel>(album);
+            return CreatedAtAction(nameof(GetAlbumById), new { id = createdModel.AlbumId }, createdModel);
         }
 
         // PUT: api/album/{id}
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAlbum(int id, [FromBody] Album album)
+        public async Task<IActionResult> UpdateAlbum(int id, [FromBody] AlbumModel albumModel)
         {
-            if (id != album.AlbumId)
-            {
+            if (id != albumModel.AlbumId)
                 return BadRequest("Album ID does not match.");
-            }
 
-            await _albumService.UpdateAsync(album);
+            var albumEntity = _mapper.Map<Album>(albumModel);
+            await _albumService.UpdateAsync(albumEntity);
+
             return NoContent();
         }
 
         //DELETE: api/album/{id}
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAlbum(int id)
+        public async Task<IActionResult> DeleteAlbum(int id)
         {
             await _albumService.DeleteAsync(id);
+            
             return NoContent();
         }
     }

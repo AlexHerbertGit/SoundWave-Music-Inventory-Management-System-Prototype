@@ -1,14 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using SoundWaveMusic.DataAccess;
+using AutoMapper;
+using SoundWaveMusic.Interfaces;
+using SoundWaveMusic.Repositories;
 using SoundWaveMusic.DataAccess.Data;
-using DataAccess.Interfaces;
-using SoundWaveMusic.DataAccess.Repositories;
-using SoundWaveMusic.BusinessLayer.Interfaces;
-using SoundWaveMusic.BusinessLayer.Services;
+using SoundWaveMusic.DataAccess;
+using BusinessLayer.Interfaces;
+using BusinessLayer.Services;
+using SoundWaveMusic.Models.MappingProfiles;
 using SoundWaveMusic.DataAccess.Interfaces;
 
-namespace SoundWaveMusic.API.Extensions
+namespace API.Extensions
 {
     public static class ServiceProviderExtension
     {
@@ -23,6 +25,8 @@ namespace SoundWaveMusic.API.Extensions
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICDRepository, CDRepository>();
+            services.AddScoped<IVinylRepository, VinylRepository>();
 
             return services;
 
@@ -36,6 +40,10 @@ namespace SoundWaveMusic.API.Extensions
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICDService, CDService>();
+            services.AddScoped<IVinylService, VinylService>();
+
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             return services;
         }

@@ -1,6 +1,6 @@
-﻿using SoundWaveMusic.Domain.Entities;
+﻿using SoundWaveMusic.Entities;
 
-namespace SoundWaveMusic.BusinessLayer.Interfaces
+namespace BusinessLayer.Interfaces
 {
     public interface IAlbumService
     {

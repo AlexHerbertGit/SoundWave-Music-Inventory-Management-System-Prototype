@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SoundWaveMusic.Domain.Entities;
 using SoundWaveMusic.DataAccess.Data;
-using DataAccess.Interfaces;
+using SoundWaveMusic.Entities;
+using SoundWaveMusic.Interfaces;
 
 
-namespace SoundWaveMusic.DataAccess.Repositories
+namespace SoundWaveMusic.Repositories
 {
     public class ArtistRepository : IArtistRepository
     {
@@ -22,7 +22,10 @@ namespace SoundWaveMusic.DataAccess.Repositories
 
         public async Task<IEnumerable<Artist>> GetAllAsync()
         {
-            return await _context.Artists.ToListAsync();
+            return await _context.Artists
+                .Include(a => a.Genre)
+                .Include(a => a.Albums)
+                .ToListAsync();
         }
 
         public async Task<Artist?> GetByIdAsync(int id)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoundWaveMusic.Domain.Entities
+namespace SoundWaveMusic.Entities
 {
     public abstract class Product
     {
@@ -13,6 +13,7 @@ namespace SoundWaveMusic.Domain.Entities
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
         public DateTime DateLastModified { get; set; }
+        public string ProductType { get; set; }
         public string? ProductPhotoUrl { get; set; }
 
         // Navigation Properties

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoundWaveMusic.BusinessLayer.Interfaces;
-using DataAccess.Interfaces;
-using SoundWaveMusic.DataAccess.Repositories;
-using SoundWaveMusic.Domain.Entities;
+using BusinessLayer.Interfaces;
+using SoundWaveMusic.Repositories;
+using SoundWaveMusic.Entities;
 using SoundWaveMusic.DataAccess.Interfaces;
 
-namespace SoundWaveMusic.BusinessLayer.Services
+namespace BusinessLayer.Services
 {
     public class GenreService : IGenreService
     {

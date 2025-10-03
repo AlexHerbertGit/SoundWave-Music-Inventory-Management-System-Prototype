@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoundWaveMusic.Domain.Entities
+namespace SoundWaveMusic.Entities
 {
     public class OrderItem
     {

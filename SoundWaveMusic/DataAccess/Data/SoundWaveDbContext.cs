@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SoundWaveMusic.Domain.Entities;
-using SoundWaveMusic.DataAccess.Repositories;
+using SoundWaveMusic.Entities;
 
 namespace SoundWaveMusic.DataAccess.Data
 {
@@ -28,11 +27,31 @@ namespace SoundWaveMusic.DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //Inheritance Configuration using TPH
+            
+
+            //Album Relationships
+            modelBuilder.Entity<Album>()
+                .HasKey(a => a.AlbumId);
+
+            modelBuilder.Entity<Album>()
+                .HasOne(a => a.Artist)
+                .WithMany(al => al.Albums)
+                .HasForeignKey(a => a.ArtistId);
+
+            modelBuilder.Entity<Album>()
+                .HasOne(a => a.Genre)
+                .WithMany(g => g.Albums)
+                .HasForeignKey(a => a.GenreId);
+
+            //Artist Relationships
+            modelBuilder.Entity<Artist>()
+                .HasKey(a => a.ArtistId);
+
+            //Product Relationships
             modelBuilder.Entity<Product>()
-                .HasDiscriminator<string>("ProductType")
-                .HasValue<CD>("CD")
-                .HasValue<Vinyl>("Vinyl");
+                .HasOne(p => p.Album)
+                .WithMany(a => a.Products)
+                .HasForeignKey(p => p.AlbumId);
 
             //OrderItem Relationship Configuration
             modelBuilder.Entity<OrderItem>()
@@ -44,6 +63,20 @@ namespace SoundWaveMusic.DataAccess.Data
                 .HasOne(oi => oi.Product)
                 .WithMany(p => p.OrderItems)
                 .HasForeignKey(oi => oi.ProductId);
+
+
+            // TPT Configuration
+            modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<CD>().ToTable("CD");
+            modelBuilder.Entity<Vinyl>().ToTable("Vinyl");
+
+            // Table names
+            modelBuilder.Entity<Album>().ToTable("Album");
+            modelBuilder.Entity<Genre>().ToTable("Genre");
+            modelBuilder.Entity<Artist>().ToTable("Artist");
+            modelBuilder.Entity<Order>().ToTable("Order");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem");
+            
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using SoundWaveMusic.Domain.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using SoundWaveMusic.Entities;
 
-namespace DataAccess.Interfaces
+namespace SoundWaveMusic.Interfaces
 {
     public interface IGenreRepository
     {

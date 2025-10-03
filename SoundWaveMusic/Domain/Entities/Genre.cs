@@ -1,4 +1,4 @@
-﻿namespace SoundWaveMusic.Domain.Entities
+﻿namespace SoundWaveMusic.Entities
 {
     public class Genre
     {

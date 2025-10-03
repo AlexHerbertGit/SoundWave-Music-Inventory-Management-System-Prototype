@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoundWaveMusic.BusinessLayer.Interfaces;
+using BusinessLayer.Interfaces;
+using SoundWaveMusic.Entities;
 using SoundWaveMusic.DataAccess.Interfaces;
-using SoundWaveMusic.Domain.Entities;
 
-namespace SoundWaveMusic.BusinessLayer.Services
+namespace BusinessLayer.Services
 {
     public class ArtistService : IArtistService
     {
@@ -39,13 +39,7 @@ namespace SoundWaveMusic.BusinessLayer.Services
             return await _unitOfWork.ArtistRepository.GetGenreByIdASync(genreId);
         }
 
-        public async Task AddAsync(Artist artist)
-        {
-            await _unitOfWork.ArtistRepository.AddAsync(artist);
-            await _unitOfWork.SaveAsync();
-        }
-
-        public async Task UpdatAsync(Artist artist)
+        public async Task UpdateAsync(Artist artist)
         {
             _unitOfWork.ArtistRepository.Update(artist);
             await _unitOfWork.SaveAsync();
