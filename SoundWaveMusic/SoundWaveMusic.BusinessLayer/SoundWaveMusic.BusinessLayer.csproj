@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SoundWaveMusic.DataAccess\SoundWaveMusic.DataAccess.csproj" />
+    <ProjectReference Include="..\SoundWaveMusic.Domain\SoundWaveMusic.Domain.csproj" />
+    <ProjectReference Include="..\SoundWaveMusic.Infrastructure\SoundWaveMusic.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>
